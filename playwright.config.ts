@@ -3,8 +3,11 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
 	reporter: [
 		['list'],
-		['html', { open: 'never' }]
+		['html', { open: 'always', outputFolder: 'test-results' }]
 	],
+	use: {
+		screenshot: 'only-on-failure'
+	},
 	webServer: {
 		command: process.env.SKIP_BUILD_FOR_TESTS
 			? 'npm run preview'
