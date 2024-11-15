@@ -63,7 +63,7 @@ jobs:
       - name: Run unit tests (Vitest)
         run: pnpm test:unit
 
-      # Figures out the version of playwright that's installed.
+      # Figures out the version of playwright that's installed..
       - name: Get installed Playwright version
         id: playwright-version
         run: echo -n "::set-output name=version::$(npm ls @playwright/test --json | jq --raw-output '.dependencies["@playwright/test"].version')"
