@@ -7,6 +7,7 @@ on:
 
 env:
   DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  PLAYWRIGHT_SKIP_BROWSER_GC: 1
 
 jobs:
   pr_checks:
@@ -63,6 +64,7 @@ jobs:
         with:
           path: |
             ~/Library/Caches/ms-playwright
+            ~/.cache/ms-playwright
           key: cache-playwright-macos
 
       # Install Playwright dependencies
