@@ -26,8 +26,9 @@
 		"eslint.enable": true,
 		"eslint.run": "onSave",
 		"files.autoSave": "onWindowChange",
-		"workbench.colorTheme": "GitHub Dark Default"
+		"workbench.colorTheme": "GitHub Dark Default",
+		"workbench.iconTheme": "vscode-icons"
 	},
-	"postCreateCommand": "pnpm install",
+	"postCreateCommand": "pnpm install && pnpm dev",
 	"runArgs": ["--init"]
 }
