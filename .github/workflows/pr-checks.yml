@@ -51,7 +51,7 @@ jobs:
       - name: Run unit tests (Vitest)
         run: pnpm test:unit
 
-      # Load playwright cache
+      # Load Playwright cache
       - name: Cache playwright binaries
         uses: actions/cache@v2
         id: playwright-cache
@@ -61,7 +61,7 @@ jobs:
             **/node_modules/playwright
           key: cache-playwright-macos
 
-      # Install playwright dependencies
+      # Install Playwright dependencies
       - name: Install playwright dependencies
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: yarn add playwright -D -W
