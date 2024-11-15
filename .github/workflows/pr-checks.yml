@@ -13,12 +13,10 @@ env:
   SKIP_BUILD_FOR_TESTS: 1 # Used in playwright.config.ts
 
 jobs:
-  # Job to set up common environment
-  setup:
-    name: Set up environment
+  pr_checks:
+    name: Run PR Checks
     runs-on: ubuntu-latest
-    outputs:
-      node_version: ${{ steps.node-version.outputs.version }}
+
     steps:
       # Checkout the code
       - name: Checkout code
@@ -50,83 +48,61 @@ jobs:
       - name: SvelteKit Build
         run: pnpm build
 
-  # Job to run Svelte checks
-  check_svelte:
-    name: Run Svelte checks
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Install dependencies
-        run: pnpm install
-      - name: Run Svelte checks
-        run: pnpm check:svelte
+      - name: Run concurrent checks (Svelte, ESLint, Prettier)
+        run: |
+          pnpm check:svelte & pnpm check:lint & pnpm check:format
+          wait $!
+        continue-on-error: false
 
-  # Job to check linting (ESLint)
-  lint:
-    name: Check linting (ESLint)
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Install dependencies
-        run: pnpm install
-      - name: Check linting (ESLint)
-        run: pnpm check:lint
+      # # Run Svelte checks
+      # - name: Run Svelte checks
+      #   run: pnpm check:svelte
 
-  # Job to check formatting
-  format:
-    name: Check formatting (Prettier)
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Install dependencies
-        run: pnpm install
-      - name: Check formatting (Prettier)
-        run: pnpm check:format
+      # # Check linting (ESLint)
+      # - name: Check linting (ESLint)
+      #   run: pnpm check:lint
 
-  # Job to run unit tests (Vitest)
-  unit_tests:
-    name: Run unit tests (Vitest)
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Install dependencies
-        run: pnpm install
+      # # Check formatting
+      # - name: Check formatting (Prettier)
+      #   run: pnpm check:format
+
+      # Run unit tests (Vitest)
       - name: Run unit tests (Vitest)
         run: pnpm test:unit
 
-  # Job to run E2E tests (Playwright) only if the previous jobs succeed
-  e2e_tests:
-    name: Run E2E Tests
-    runs-on: ubuntu-latest
-    needs: [check_svelte, lint, format, unit_tests] # Only run if these jobs succeed
-    steps:
-      # Get installed Playwright version
+      # Figures out the version of playwright that's installed..
       - name: Get installed Playwright version
         id: playwright-version
         run: echo -n "::set-output name=version::$(npm ls @playwright/test --json | jq --raw-output '.dependencies["@playwright/test"].version')"
 
-      # Restore Playwright browser binaries cache
+      # Attempt to restore the correct Playwright browser binaries based on the
+      # currently installed version of Playwright (The browser binary versions
+      # may change with Playwright versions).
+      # Note: Playwright's cache directory is hard coded because that's what it
+      # says to do in the docs. There doesn't appear to be a command that prints
+      # it out for us.
       - uses: actions/cache@v4
         id: playwright-cache
         with:
           path: '~/.cache/ms-playwright'
           key: '${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.version }}'
+          # As a fallback, if the Playwright version has changed, try use the
+          # most recently cached version. There's a good chance that at least one
+          # of the browser binary versions haven't been updated, so Playwright can
+          # skip installing that in the next step.
+          # Note: When falling back to an old cache, `cache-hit` (used below)
+          # will be `false`. This allows us to restore the potentially out of
+          # date cache, but still let Playwright decide if it needs to download
+          # new binaries or not.
           restore-keys: |
             ${{ runner.os }}-playwright-
 
-      # Install Playwright
+      # If the Playwright browser binaries weren't able to be restored, we tell
+      # paywright to install everything for us.
       - name: Install Playwright
         run: npx playwright install --with-deps
 
-      # Run E2E Tests (Playwright)
+      # Run E2E tests (Playwright)
       - name: Run E2E Tests
         run: pnpm test:e2e
 
