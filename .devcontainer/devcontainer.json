@@ -1,28 +1,26 @@
 {
-    "name": "Svelte + SQLite + Prettier + ESLint",
-    "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:0-20",
-    "features": {
-        "git": "latest",
-        "node": "lts",
-        "sqlite": "latest"
-    },
-    "extensions": [
-        "esbenp.prettier-vscode",
-        "dbaeumer.vscode-eslint",
-        "EditorConfig.EditorConfig",
-        "svelte.svelte-vscode",
-        "ms-vscode.sqlite"
-    ],
-    "settings": {
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "eslint.enable": true,
-        "eslint.run": "onSave",
-        "files.autoSave": "onWindowChange",
-        "workbench.colorTheme": "High Contrast"
-    },
-    "postCreateCommand": "npm install",
-    "runArgs": [
-        "--init"
-    ]
+	"name": "Svelte + SQLite + Prettier + ESLint",
+	"image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:0-20",
+	"features": {
+		"git": "latest",
+		"node": "lts",
+		"sqlite": "latest"
+	},
+	"extensions": [
+		"esbenp.prettier-vscode",
+		"dbaeumer.vscode-eslint",
+		"EditorConfig.EditorConfig",
+		"svelte.svelte-vscode",
+		"ms-vscode.sqlite"
+	],
+	"settings": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"eslint.enable": true,
+		"eslint.run": "onSave",
+		"files.autoSave": "onWindowChange",
+		"workbench.colorTheme": "High Contrast"
+	},
+	"postCreateCommand": "npm install",
+	"runArgs": ["--init"]
 }
