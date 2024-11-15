@@ -65,7 +65,7 @@ jobs:
           path: |
             ~/Library/Caches/ms-playwright
             ~/.cache/ms-playwright
-          key: cache-playwright-macos
+          key: cache-playwright-linux
 
       # Install Playwright dependencies
       - name: Install playwright dependencies
