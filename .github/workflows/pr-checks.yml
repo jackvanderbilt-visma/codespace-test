@@ -37,8 +37,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      # Build
-      - name: Build
+      # SvelteKit Sync
+      - name: SvelteKit Sync
+        run: pnpm sync
+
+      # SvelteKit Build
+      - name: SvelteKit Build
         run: pnpm build
 
       # Run Svelte checks
