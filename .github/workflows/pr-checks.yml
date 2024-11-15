@@ -17,7 +17,7 @@ jobs:
         
       # Set up pnpm
       - uses: pnpm/action-setup@v4
-        name: Install pnpm
+        name: Install NodeJS dependency manager (PNPM)
         with:
           version: 9
           run_install: false
@@ -35,11 +35,15 @@ jobs:
 
       # Run Svelte checks
       - name: Run Svelte checks
-        run: pnpm check
+        run: pnpm check:svelte
 
-      # Run linting (Prettier and ESLint)
-      - name: Run linting (P)
-        run: pnpm lint
+      # Check linting (ESLint)
+      - name: Check linting (ESLint)
+        run: pnpm check:lint
+
+      # Check formatting
+      - name: Check formatting (Prettier)
+        run: pnpm check:format
 
       # Run unit tests (Vitest)
       - name: Run unit tests (Vitest)
