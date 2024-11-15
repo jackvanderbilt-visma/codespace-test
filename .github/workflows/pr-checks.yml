@@ -1,0 +1,51 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches:
+      - '**' # Trigger on all branches
+
+jobs:
+  pr_checks:
+    name: Run PR Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Adjust Node.js version as needed
+          cache: 'pnpm'      # Cache pnpm dependencies
+
+      # Install pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # Install dependencies
+      - name: Install dependencies
+        run: pnpm install
+
+      # Run Svelte checks
+      - name: Run Svelte checks
+        run: pnpm check
+
+      # Run linting (Prettier and ESLint)
+      - name: Run linting
+        run: pnpm lint
+
+      # Run unit tests (Vitest)
+      - name: Run unit tests
+        run: pnpm test:unit
+        
+      # Run E2E tests (Playwright)
+      - name: Run E2E Tests
+        run: pnpm test:e2e
+
+      # Run build
+      - name: Run Build
+        run: pnpm build
