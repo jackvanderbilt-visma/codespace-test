@@ -1,6 +1,10 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
+	reporter: [
+		['list'],
+		['html', { open: 'never' }]
+	],
 	webServer: {
 		command: process.env.SKIP_BUILD_FOR_TESTS
 			? 'npm run preview'
