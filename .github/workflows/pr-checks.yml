@@ -68,8 +68,8 @@ jobs:
       - name: Cache APT packages
         uses: actions/cache@v3
         with:
-          path: /tmp/apt-cache  # Use a temporary location for caching apt data
-          key: ${{ runner.os }}-apt-${{ hashFiles('**/apt/archives/*') }}  # Cache key based on system and files
+          path: /tmp/apt-cache # Use a temporary location for caching apt data
+          key: ${{ runner.os }}-apt-${{ hashFiles('**/apt/archives/*') }} # Cache key based on system and files
           restore-keys: |
             ${{ runner.os }}-apt-
 
