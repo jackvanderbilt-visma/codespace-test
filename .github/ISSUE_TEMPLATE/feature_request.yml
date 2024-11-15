@@ -1,0 +1,54 @@
+name: 'Feature Request'
+description: Suggest an idea for this project
+body:
+  - type: textarea
+    id: customer
+    attributes:
+      label: Customer ID or internal name
+      description: Please provide the customer ID, or name if the customer is an internal customer.
+      placeholder: bcabc272-4155-4c2e-ac98-3fe7af8450ae (Jack van der Bilt)
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to request this feature!
+  - type: textarea
+    id: problem
+    attributes:
+      label: Describe the problem
+      description: Provide a clear and concise description of the problem this feature would address. The more details you provide, the better we can understand the need.
+      placeholder: One of our customers needs...
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the proposed solution
+      description: Clearly describe what you would like to see implemented. Be as specific as possible.
+      placeholder: As a customer, I would like...
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: 'Outline any alternative workarounds or solutions you’ve explored. Include details on why they may or may not work.'
+  - type: dropdown
+    id: importance
+    attributes:
+      label: Importance
+      description: How important is this feature to the customer?
+      options:
+        - Nice to have
+        - Would make their workflow more enjoyable
+        - Would save them some time
+        - Would save LOTS of time
+        - Will not become or stay a customer without it
+    validations:
+      required: true
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Information
+      description: Include any extra context, screenshots, or details that could help us better understand this request
