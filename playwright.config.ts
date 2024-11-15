@@ -2,11 +2,12 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
 	reporter: [
-		['list'],
-		['html', { open: 'never', outputFolder: 'test-results' }]
+		['list', { outputFolder: 'playwright/test-results' }],
+		['html', { open: 'never', outputFolder: 'playwright/test-results' }]
 	],
+	outputDir: 'playwright/test-results',
 	use: {
-		screenshot: 'only-on-failure'
+		screenshot: 'only-on-failure',
 	},
 	webServer: {
 		command: process.env.SKIP_BUILD_FOR_TESTS
@@ -47,5 +48,5 @@ export default defineConfig({
 			use: { ...devices['Desktop Edge'], channel: 'msedge' } // or 'msedge-dev'
 		}
 	],
-	testDir: 'e2e'
+	testDir: 'playwright'
 });

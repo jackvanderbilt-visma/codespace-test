@@ -1,4 +1,4 @@
-test-results
+playwright/test-results
 node_modules
 
 # Output

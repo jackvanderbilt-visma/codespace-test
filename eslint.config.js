@@ -28,6 +28,6 @@ export default ts.config(
 		}
 	},
 	{
-		ignores: ['build/', '.svelte-kit/', 'dist/', 'src/lib/paraglide']
+		ignores: ['build/', '.svelte-kit/', 'dist/', 'src/lib/paraglide', 'playwright/test-results']
 	}
 );
