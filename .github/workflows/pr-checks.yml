@@ -64,8 +64,14 @@ jobs:
       - name: Run unit tests (Vitest)
         run: pnpm test:unit
 
+      # Ensure correct permissions for apt cache
+      - name: Ensure permissions for APT cache
+        run: |
+          sudo chown -R $USER:$USER /tmp/apt-cache
+          sudo chmod -R 755 /tmp/apt-cache
+
       # Cache APT packages
-      - name: Cache APT packages
+      - name: Load APT packages Cache
         uses: actions/cache@v3
         with:
           path: /tmp/apt-cache # Use a temporary location for caching apt data
@@ -109,7 +115,7 @@ jobs:
       - name: Run E2E Tests
         run: pnpm test:e2e
 
-      - name: Save APT Cache
+      - name: Save APT packages Cache
         run: sudo mv /var/cache/apt/archives /tmp/apt-cache && sudo ln -s /tmp/apt-cache /var/cache/apt/archives
 
       - uses: actions/upload-artifact@v4
