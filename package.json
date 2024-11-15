@@ -12,9 +12,11 @@
 		"check:lint": "eslint .",
 		"fix:format": "prettier --write .",
 		"fix:lint": "eslint . --fix",
-		"test:unit": "vitest",
+		"test:unit": "vitest -- --run",
 		"test:e2e": "playwright test",
-		"test": "npm run test:unit -- --run && npm run test:e2e",
+		"test": "pnpm test:unit && pnpm test:e2e",
+		"check": "pnpm check:svelte && pnpm check:lint && pnpm check:format",
+		"fix": "pnpm fix:lint && pnpm fix:format",
 		"db:push": "drizzle-kit push",
 		"db:migrate": "drizzle-kit migrate",
 		"db:studio": "drizzle-kit studio"
