@@ -6,28 +6,37 @@
 		"ghcr.io/devcontainers/features/node:1": { "pnpmVersion": "latest" },
 		"ghcr.io/warrenbuckley/codespace-features/sqlite:1": {}
 	},
-	"extensions": [
-		"esbenp.prettier-vscode",
-		"dbaeumer.vscode-eslint",
-		"EditorConfig.EditorConfig",
-		"svelte.svelte-vscode",
-		"ms-vscode.sqlite"
-	],
-	"settings": {
-		"git.autofetch": true,
-		"git.enableSmartCommit": true,
-		"editor.minimap.maxColumn": 80,
-		"editor.minimap.renderCharacters": false,
-		"workbench.tree.indent": 12,
-		"javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
-		"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
-		"editor.formatOnSave": true,
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"eslint.enable": true,
-		"eslint.run": "onSave",
-		"files.autoSave": "onWindowChange",
-		"workbench.colorTheme": "GitHub Dark Default",
-		"workbench.iconTheme": "vscode-icons"
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"esbenp.prettier-vscode",
+				"dbaeumer.vscode-eslint",
+				"EditorConfig.EditorConfig",
+				"svelte.svelte-vscode",
+				"ms-vscode.sqlite",
+				"vscode-icons-team.vscode-icons",
+				"GitHub.github-vscode-theme",
+				"github.vscode-github-actions",
+				"ChakrounAnas.turbo-console-log",
+				"formulahendry.auto-rename-tag"
+			],
+			"settings": {
+				"git.autofetch": true,
+				"git.enableSmartCommit": true,
+				"editor.minimap.maxColumn": 80,
+				"editor.minimap.renderCharacters": false,
+				"workbench.tree.indent": 12,
+				"javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+				"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+				"editor.formatOnSave": true,
+				"editor.defaultFormatter": "esbenp.prettier-vscode",
+				"eslint.enable": true,
+				"eslint.run": "onSave",
+				"files.autoSave": "onWindowChange",
+				"workbench.colorTheme": "GitHub Dark Default",
+				"workbench.iconTheme": "vscode-icons"
+			}
+		}
 	},
 	"postCreateCommand": "pnpm install && pnpm dev",
 	"runArgs": ["--init"]
