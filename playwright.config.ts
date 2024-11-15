@@ -2,7 +2,9 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
 	webServer: {
-		command: process.env.SKIP_BUILD_FOR_TESTS ? 'npm run preview' : 'npm run build && npm run preview',
+		command: process.env.SKIP_BUILD_FOR_TESTS
+			? 'npm run preview'
+			: 'npm run build && npm run preview',
 		port: 4173
 	},
 	projects: [
