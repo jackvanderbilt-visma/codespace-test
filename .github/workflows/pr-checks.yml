@@ -68,7 +68,13 @@ jobs:
       # Install Playwright dependencies
       - name: Install playwright dependencies
         if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install
+        run: npx playwright install-deps
+
+      # Install Playwright browsers
+      - name: Install playwright dependencies
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install webkit
+
 
       # Run E2E tests (Playwright)
       - name: Run E2E Tests
