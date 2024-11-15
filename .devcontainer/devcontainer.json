@@ -34,10 +34,17 @@
 				"eslint.run": "onSave",
 				"files.autoSave": "onWindowChange",
 				"workbench.colorTheme": "GitHub Dark Default",
-				"workbench.iconTheme": "vscode-icons"
+				"workbench.iconTheme": "vscode-icons",
+				"vsicons.dontShowNewVersionMessage": true,
+				"window.menuBarVisibility": "classic",
+				"workbench.activityBar.location": "top",
+				"workbench.editor.editorActionsLocation": "titleBar",
+				"breadcrumbs.enabled": false,
+				"window.commandCenter": false,
+				"workbench.layoutControl.enabled": false
 			}
 		}
 	},
-	"postCreateCommand": "pnpm install && pnpm dev",
+	"postCreateCommand": "pnpm install && npx playwright install chrome --with-deps && npx playwright install msedge --with-deps && npx playwright install --with-deps && clear",
 	"runArgs": ["--init"]
 }
