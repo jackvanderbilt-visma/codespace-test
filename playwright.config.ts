@@ -7,7 +7,7 @@ export default defineConfig({
 	],
 	outputDir: 'playwright/test-results',
 	use: {
-		screenshot: 'only-on-failure',
+		screenshot: 'only-on-failure'
 	},
 	webServer: {
 		command: process.env.SKIP_BUILD_FOR_TESTS
