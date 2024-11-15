@@ -14,12 +14,19 @@
 		"ms-vscode.sqlite"
 	],
 	"settings": {
+		"git.autofetch": true,
+		"git.enableSmartCommit": true,
+		"editor.minimap.maxColumn": 80,
+		"editor.minimap.renderCharacters": false,
+		"workbench.tree.indent": 12,
+		"javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+		"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
 		"editor.formatOnSave": true,
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"eslint.enable": true,
 		"eslint.run": "onSave",
 		"files.autoSave": "onWindowChange",
-		"workbench.colorTheme": "High Contrast"
+		"workbench.colorTheme": "GitHub Dark Default"
 	},
 	"postCreateCommand": "pnpm install",
 	"runArgs": ["--init"]
