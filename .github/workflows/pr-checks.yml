@@ -48,23 +48,17 @@ jobs:
       - name: SvelteKit Build
         run: pnpm build
 
-      - name: Run concurrent checks (Svelte, ESLint, Prettier)
-        run: |
-          pnpm check:svelte & pnpm check:lint & pnpm check:format
-          wait $!
-        continue-on-error: false
+      # Run Svelte checks
+      - name: Run Svelte checks
+        run: pnpm check:svelte
 
-      # # Run Svelte checks
-      # - name: Run Svelte checks
-      #   run: pnpm check:svelte
+      # Check linting (ESLint)
+      - name: Check linting (ESLint)
+        run: pnpm check:lint
 
-      # # Check linting (ESLint)
-      # - name: Check linting (ESLint)
-      #   run: pnpm check:lint
-
-      # # Check formatting
-      # - name: Check formatting (Prettier)
-      #   run: pnpm check:format
+      # Check formatting
+      - name: Check formatting (Prettier)
+        run: pnpm check:format
 
       # Run unit tests (Vitest)
       - name: Run unit tests (Vitest)
@@ -73,7 +67,7 @@ jobs:
       # Figures out the version of playwright that's installed..
       - name: Get installed Playwright version
         id: playwright-version
-        run: echo -n "::set-output name=version::$(npm ls @playwright/test --json | jq --raw-output '.dependencies["@playwright/test"].version')"
+        run: echo "version=$(npm ls @playwright/test --json | jq --raw-output '.dependencies["@playwright/test"].version')" >> $CI_DETECTED_PLAYWRIGHT_VERSION
 
       # Attempt to restore the correct Playwright browser binaries based on the
       # currently installed version of Playwright (The browser binary versions
@@ -85,7 +79,7 @@ jobs:
         id: playwright-cache
         with:
           path: '~/.cache/ms-playwright'
-          key: '${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.version }}'
+          key: '${{ runner.os }}-playwright-${{ env.CI_DETECTED_PLAYWRIGHT_VERSION }}'
           # As a fallback, if the Playwright version has changed, try use the
           # most recently cached version. There's a good chance that at least one
           # of the browser binary versions haven't been updated, so Playwright can
