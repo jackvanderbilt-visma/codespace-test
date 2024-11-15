@@ -3,7 +3,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
 	reporter: [
 		['list'],
-		['html', { open: 'always', outputFolder: 'test-results' }]
+		['html', { open: 'never', outputFolder: 'test-results' }]
 	],
 	use: {
 		screenshot: 'only-on-failure'
